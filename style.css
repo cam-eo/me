@@ -1,0 +1,59 @@
+:root {
+  color-scheme: dark light;
+
+  --foreground: #e4c58a;
+  --background: #1c1a15;
+  --primary: #2f4a3d;
+}
+
+:root:has(#light-mode-toggle:checked) {
+  --foreground: #8b6b3e;
+  --background: #eee9e0;
+  --primary: #6f8573;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+button {
+  background-color: var(--primary);
+}
+
+#background-canvas {
+  z-index: -1;
+  position: absolute;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#light-mode-toggle {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+nav {
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+nav ul li {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
