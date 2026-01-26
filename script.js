@@ -71,7 +71,96 @@ function animate(time) {
   requestAnimationFrame(animate);
 }
 
-// Initialize
+// Initialize canvas
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 animate(0);
+
+// ===== SCROLL ANIMATION LOGIC =====
+
+const heroContainer = document.querySelector(".hero-container");
+const heroTitle = document.querySelector(".hero-title");
+const mainNav = document.getElementById("main-nav");
+
+// Track scroll and update hero/nav transforms
+function handleScroll() {
+  const scrollY = window.scrollY;
+  const viewportHeight = window.innerHeight;
+  
+  // Calculate progress (0 to 1) over the first viewport height
+  const progress = Math.min(scrollY / viewportHeight, 1);
+  
+  // Calculate scale: from 1 to 0.15 (small but not invisible)
+  const scale = 1 - progress * 0.85;
+  
+  // Calculate opacity: fade out hero as we scroll
+  const heroOpacity = 1 - progress;
+  
+  // Calculate navigation opacity: fade in after 50% scroll
+  const navOpacity = Math.max(0, (progress - 0.5) * 2);
+  
+  // Apply transforms to hero
+  if (heroContainer && heroTitle) {
+    heroTitle.style.transform = `scale(${scale})`;
+    heroTitle.style.opacity = heroOpacity;
+    
+    // Hide hero container completely when fully scrolled
+    if (progress >= 0.95) {
+      heroContainer.style.pointerEvents = "none";
+      heroContainer.style.opacity = "0";
+    } else {
+      heroContainer.style.opacity = "1";
+    }
+  }
+  
+  // Show/hide navigation based on scroll
+  if (mainNav) {
+    if (progress > 0.3) {
+      mainNav.classList.add("visible");
+    } else {
+      mainNav.classList.remove("visible");
+    }
+  }
+}
+
+// Use requestAnimationFrame for smooth performance
+let ticking = false;
+
+function requestScrollUpdate() {
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      handleScroll();
+      ticking = false;
+    });
+    ticking = true;
+  }
+}
+
+// Listen to scroll events
+window.addEventListener("scroll", requestScrollUpdate);
+
+// Initial call to set correct state on page load
+handleScroll();
+
+// ===== SMOOTH SCROLL FOR NAVIGATION LINKS =====
+
+// Add smooth scroll behavior to all navigation anchor links
+document.querySelectorAll('#main-nav a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    
+    const targetId = this.getAttribute("href");
+    const targetSection = document.querySelector(targetId);
+    
+    if (targetSection) {
+      // Smooth scroll to the target section
+      targetSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+      
+      // Update URL without jumping
+      history.pushState(null, null, targetId);
+    }
+  });
+});

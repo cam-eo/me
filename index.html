@@ -3,28 +3,64 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Cam - Software Developer portfolio showcasing CV, about me, and projects" />
     <title>Cam - Software Developer</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Skip to main content link for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <canvas aria-hidden="true" id="background-canvas"></canvas>
 
-    <header></header>
-    <nav>
+    <header role="banner">
+      <!-- Hero Section with Large CAM. Text -->
+      <div class="hero-container" role="presentation" aria-hidden="true">
+        <h1 class="hero-title">CAM.</h1>
+      </div>
+    </header>
+    
+    <!-- Navigation (hidden initially, appears on scroll) -->
+    <nav id="main-nav" aria-label="Main navigation">
       <ul>
-        <li>C</li>
-        <li>A</li>
-        <li>M</li>
+        <li><a href="#cv">CV</a></li>
+        <li><a href="#about">About Me</a></li>
+        <li><a href="#projects">My Projects</a></li>
       </ul>
       <input type="checkbox" id="light-mode-toggle" />
       <label for="light-mode-toggle" aria-label="Toggle light mode">🌞</label>
     </nav>
-    <main>
-      <section class="hero">
-        <article></article>
+    
+    <main id="main-content" role="main">
+      <!-- CV Section -->
+      <section id="cv" class="content-section" aria-labelledby="cv-heading">
+        <h2 id="cv-heading">CV</h2>
+        <article>
+          <p>Experience, education, and professional background will go here.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </article>
+      </section>
+      
+      <!-- About Me Section -->
+      <section id="about" class="content-section" aria-labelledby="about-heading">
+        <h2 id="about-heading">About Me</h2>
+        <article>
+          <p>Personal introduction and background information.</p>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </article>
+      </section>
+      
+      <!-- My Projects Section -->
+      <section id="projects" class="content-section" aria-labelledby="projects-heading">
+        <h2 id="projects-heading">My Projects</h2>
+        <article>
+          <p>Portfolio of work and projects.</p>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        </article>
       </section>
     </main>
-    <footer></footer>
+    
+    <footer role="contentinfo"></footer>
   </body>
   <script src="script.js"></script>
 </html>
