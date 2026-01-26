@@ -1,5 +1,45 @@
+/* 
+ * Font Configuration
+ * To change fonts, update ONLY the file paths in @font-face src declarations below
+ * and the font-family names in the --font-regular and --font-bold tokens
+ */
+
+/* Regular font (Supreme) */
+@font-face {
+  font-family: 'Supreme';
+  src: url('font/Supreme-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Supreme';
+  src: url('font/Supreme-VariableItalic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+/* Bold font (BespokeStencil) */
+@font-face {
+  font-family: 'BespokeStencil';
+  src: url('font/BespokeStencil-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BespokeStencil';
+  src: url('font/BespokeStencil-VariableItalic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
+
 :root {
   color-scheme: dark light;
+
+  /* Font tokens - update font-family names here when changing fonts */
+  --font-regular: 'Supreme', sans-serif;
+  --font-bold: 'BespokeStencil', sans-serif;
 
   --foreground: #e4c58a;
   --background: #1c1a15;
@@ -15,6 +55,7 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-family: var(--font-regular);
 }
 
 button {
@@ -55,5 +96,11 @@ nav ul {
 
 nav ul li {
   font-size: 1.5rem;
+  font-family: var(--font-bold);
   font-weight: bold;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
