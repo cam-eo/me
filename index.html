@@ -14,22 +14,35 @@
     <canvas aria-hidden="true" id="background-canvas"></canvas>
 
     <header role="banner">
-      <!-- Hero Section with Large CAM. Text -->
-      <div class="hero-container" role="presentation" aria-hidden="true">
-        <h1 class="hero-title">CAM.</h1>
-      </div>
+      <!-- Hero/Nav Section with Morphing CAM. Text -->
+      <nav id="main-nav" aria-label="Main navigation">
+        <div class="nav-items">
+          <!-- C -> CV -->
+          <a href="#cv" class="nav-letter" data-letter="c">
+            <span class="letter-base">C</span>
+            <span class="letter-full">CV</span>
+          </a>
+          
+          <!-- A -> About Me -->
+          <a href="#about" class="nav-letter" data-letter="a">
+            <span class="letter-base">A</span>
+            <span class="letter-full">About Me</span>
+          </a>
+          
+          <!-- M -> My Projects -->
+          <a href="#projects" class="nav-letter" data-letter="m">
+            <span class="letter-base">M</span>
+            <span class="letter-full">My Projects</span>
+          </a>
+          
+          <!-- Period stays with M -->
+          <span class="period">.</span>
+        </div>
+        
+        <input type="checkbox" id="light-mode-toggle" />
+        <label for="light-mode-toggle" aria-label="Toggle light mode">🌞</label>
+      </nav>
     </header>
-    
-    <!-- Navigation (hidden initially, appears on scroll) -->
-    <nav id="main-nav" aria-label="Main navigation">
-      <ul>
-        <li><a href="#cv">CV</a></li>
-        <li><a href="#about">About Me</a></li>
-        <li><a href="#projects">My Projects</a></li>
-      </ul>
-      <input type="checkbox" id="light-mode-toggle" />
-      <label for="light-mode-toggle" aria-label="Toggle light mode">🌞</label>
-    </nav>
     
     <main id="main-content" role="main">
       <!-- CV Section -->
@@ -39,6 +52,7 @@
           <p>Experience, education, and professional background will go here.</p>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </article>
+        <div class="tech-cloud" id="tech-cloud" role="img" aria-label="Technology highlights"></div>
       </section>
       
       <!-- About Me Section -->
@@ -56,11 +70,14 @@
         <article>
           <p>Portfolio of work and projects.</p>
           <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+          <div class="card">> terminal</div>
         </article>
       </section>
     </main>
     
     <footer role="contentinfo"></footer>
   </body>
-  <script src="script.js"></script>
+  <script src="/script/stardust.js"></script>
+  <script src="/script/navbar.js"></script>
+  <script src="/script/tech-cloud.js"></script>
 </html>

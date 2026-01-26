@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Project 1",
+        "description": "Description of Project 1",
+        "stack": ["HTML", "CSS", "JavaScript"]
+    },
+    {
+        "name": "Project 2",
+        "description": "Description of Project 2",
+        "stack": ["HTML", "CSS", "JavaScript"]
+    },
+    {
+        "name": "Project 3",
+        "description": "Description of Project 3",
+        "stack": ["HTML", "CSS", "JavaScript"]
+    }
+]

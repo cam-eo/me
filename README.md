@@ -1,5 +1,7 @@
 # My portfolio website
 
+Cameron Wright's portfolio website demonstrating fundemental web development knowledge.
+
 ## Tokens
 
 ### z-index
