@@ -2,6 +2,7 @@ const mainNav = document.getElementById("main-nav");
 const navItems = document.querySelector(".nav-items");
 const period = document.querySelector(".period");
 const navLetters = document.querySelectorAll(".nav-letter");
+const navLetterSuffixes = document.querySelectorAll(".letter-suffix");
 
 function clamp(min, v, max) {
   return Math.min(max, Math.max(min, v));
@@ -24,18 +25,23 @@ function handleScroll() {
 
   const targetCenterY = 56;
   const translateYPx = (targetCenterY - window.innerHeight / 2) * progress;
-  
-  const gap = 0.5 + progress * 8.5;
-  
-  const baseOpacity = 1 - progress;
-  
-  const fullOpacity = Math.max(0, (progress - 0.5) * 2);
+    
+  const suffixOpacity = Math.max(0, (progress - 0.5) * 2);
   
   const periodOpacity = 1 - progress;
+
+  if(navLetterSuffixes && progress < 0.6){
+    navLetterSuffixes.forEach(suffix => {
+      suffix.style.display = 'none';
+    });
+  } else if(navLetterSuffixes && progress >= 0.6){
+    navLetterSuffixes.forEach(suffix => {
+      suffix.style.display = 'inline-block';
+    });
+  }
   
   if (navItems) {
     navItems.style.transform = `translateY(${translateYPx}px)`;
-    navItems.style.gap = `${gap}rem`;
     navItems.style.setProperty("--cam-font-size", `${camFontPx}px`);
   }
   
@@ -45,11 +51,14 @@ function handleScroll() {
   }
   
   navLetters.forEach(letter => {
-    const base = letter.querySelector('.letter-base');
-    const full = letter.querySelector('.letter-full');
+    const suffix = letter.querySelector('.letter-suffix');
     
-    if (base) base.style.opacity = baseOpacity;
-    if (full) full.style.opacity = fullOpacity;
+    if (suffix) {
+      suffix.style.opacity = suffixOpacity;
+      suffix.style.transform = suffixOpacity > 0 
+        ? 'translateX(0)' 
+        : 'translateX(-0.5rem)';
+    }
     
     letter.style.pointerEvents = progress > 0.3 ? 'auto' : 'none';
   });

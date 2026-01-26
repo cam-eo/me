@@ -41,9 +41,9 @@
   --font-bold: 'BespokeStencil', sans-serif;
 
   --foreground: #e4c58a;
-  --background: #1c1a15;
+  --background: #1f1a19;
   --primary: #2f4a3d;
-  --surface: #161211;
+  --surface: #181312;
 
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -113,6 +113,17 @@ button {
   bottom: 0;
 }
 
+#hero-effects-canvas {
+  z-index: 50;
+  position: fixed;
+  display: block;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
 #light-mode-toggle {
   position: absolute;
   inline-size: 1px;
@@ -167,8 +178,7 @@ button {
 
 .nav-items {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  gap: 2rem;
   font-family: var(--font-bold);
   font-weight: bold;
   transition: gap 0.1s ease-out, transform 0.1s ease-out;
@@ -179,15 +189,11 @@ button {
 
 .nav-letter {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   color: var(--foreground);
   text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.nav-letter:hover,
-.nav-letter:focus {
-  opacity: 0.7;
+  letter-spacing: 0;
 }
 
 .nav-letter:focus-visible {
@@ -195,26 +201,25 @@ button {
   outline-offset: 4px;
 }
 
-.letter-base,
-.letter-full {
+.letter-base {
   display: block;
   white-space: nowrap;
-  transition: opacity 0.2s ease-out;
-}
-
-.letter-base {
   font-size: var(--cam-font-size);
-  letter-spacing: var(--cam-letter-spacing);
 }
 
-.letter-full {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.letter-suffix {
+  display: inline-block;
+  white-space: nowrap;
   font-size: 1.5rem;
   opacity: 0;
+  transform: translateX(-0.5rem);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
   pointer-events: none;
+}
+
+.nav-letter:hover .letter-suffix,
+.nav-letter:focus .letter-suffix {
+  opacity: 0.8;
 }
 
 .period {
@@ -316,7 +321,7 @@ main {
   .nav-items,
   .nav-letter,
   .letter-base,
-  .letter-full,
+  .letter-suffix,
   .period {
     transition: none !important;
   }
@@ -327,7 +332,7 @@ main {
   background-color: var(--surface);
   padding: 1rem;
   border-radius: 0.5rem;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
 
 
 }
@@ -335,3 +340,5 @@ main {
 .card-portfolio {
   width: 100%;
 }
+
+

@@ -8,34 +8,29 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Skip to main content link for keyboard navigation -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <canvas aria-hidden="true" id="background-canvas"></canvas>
+    <canvas aria-hidden="true" id="hero-effects-canvas"></canvas>
 
     <header role="banner">
-      <!-- Hero/Nav Section with Morphing CAM. Text -->
       <nav id="main-nav" aria-label="Main navigation">
         <div class="nav-items">
-          <!-- C -> CV -->
-          <a href="#cv" class="nav-letter" data-letter="c">
+          <a href="#cv" class="nav-letter" data-letter="c" aria-label="CV">
             <span class="letter-base">C</span>
-            <span class="letter-full">CV</span>
+            <span class="letter-suffix">V</span>
           </a>
           
-          <!-- A -> About Me -->
-          <a href="#about" class="nav-letter" data-letter="a">
+          <a href="#about" class="nav-letter" data-letter="a" aria-label="About Me">
             <span class="letter-base">A</span>
-            <span class="letter-full">About Me</span>
+            <span class="letter-suffix">bout Me</span>
           </a>
           
-          <!-- M -> My Projects -->
-          <a href="#projects" class="nav-letter" data-letter="m">
+          <a href="#projects" class="nav-letter" data-letter="m" aria-label="My Projects">
             <span class="letter-base">M</span>
-            <span class="letter-full">My Projects</span>
+            <span class="letter-suffix">y Projects</span>
           </a>
           
-          <!-- Period stays with M -->
           <span class="period">.</span>
         </div>
         
@@ -45,7 +40,6 @@
     </header>
     
     <main id="main-content" role="main">
-      <!-- CV Section -->
       <section id="cv" class="content-section" aria-labelledby="cv-heading">
         <h2 id="cv-heading">CV</h2>
         <article>
@@ -55,7 +49,6 @@
         <div class="tech-cloud" id="tech-cloud" role="img" aria-label="Technology highlights"></div>
       </section>
       
-      <!-- About Me Section -->
       <section id="about" class="content-section" aria-labelledby="about-heading">
         <h2 id="about-heading">About Me</h2>
         <article>
@@ -64,7 +57,6 @@
         </article>
       </section>
       
-      <!-- My Projects Section -->
       <section id="projects" class="content-section" aria-labelledby="projects-heading">
         <h2 id="projects-heading">My Projects</h2>
         <article>
