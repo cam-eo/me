@@ -6,30 +6,30 @@
 
 /* Regular font (Supreme) */
 @font-face {
-  font-family: 'Supreme';
-  src: url('font/Supreme-Variable.ttf') format('truetype');
+  font-family: "Supreme";
+  src: url("font/Supreme-Variable.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Supreme';
-  src: url('font/Supreme-VariableItalic.ttf') format('truetype');
+  font-family: "Supreme";
+  src: url("font/Supreme-VariableItalic.ttf") format("truetype");
   font-weight: 100 900;
   font-style: italic;
 }
 
 /* Bold font (BespokeStencil) */
 @font-face {
-  font-family: 'BespokeStencil';
-  src: url('font/BespokeStencil-Variable.ttf') format('truetype');
+  font-family: "BespokeStencil";
+  src: url("font/BespokeStencil-Variable.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'BespokeStencil';
-  src: url('font/BespokeStencil-VariableItalic.ttf') format('truetype');
+  font-family: "BespokeStencil";
+  src: url("font/BespokeStencil-VariableItalic.ttf") format("truetype");
   font-weight: 100 900;
   font-style: italic;
 }
@@ -37,8 +37,8 @@
 :root {
   color-scheme: dark light;
 
-  --font-regular: 'Supreme', sans-serif;
-  --font-bold: 'BespokeStencil', sans-serif;
+  --font-regular: "Supreme", sans-serif;
+  --font-bold: "BespokeStencil", sans-serif;
 
   --foreground: #e4c58a;
   --background: #1f1a19;
@@ -60,7 +60,6 @@
   --background: #eee9e0;
   --primary: #6f8573;
   --surface: #f5f5f5;
-
 }
 
 * {
@@ -133,6 +132,10 @@ button {
   white-space: nowrap;
 }
 
+header {
+  min-height: 100vh;
+}
+
 #main-nav {
   position: fixed;
   top: 0;
@@ -148,7 +151,7 @@ button {
 }
 
 #main-nav::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -181,7 +184,9 @@ button {
   gap: 2rem;
   font-family: var(--font-bold);
   font-weight: bold;
-  transition: gap 0.1s ease-out, transform 0.1s ease-out;
+  transition:
+    gap 0.1s ease-out,
+    transform 0.1s ease-out;
   transform-origin: center center;
   --cam-font-size: clamp(8rem, 20vw, 15rem);
   --cam-letter-spacing: 0.5em;
@@ -208,12 +213,15 @@ button {
 }
 
 .letter-suffix {
+  width: 0;
   display: inline-block;
   white-space: nowrap;
   font-size: 1.5rem;
   opacity: 0;
   transform: translateX(-0.5rem);
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out;
   pointer-events: none;
 }
 
@@ -232,13 +240,11 @@ button {
 
 main {
   position: relative;
-  margin-top: 100vh;
   z-index: 1;
   background-color: transparent;
 }
 
 .content-section {
-  min-height: 100vh;
   padding: 4rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -315,7 +321,7 @@ main {
   html {
     scroll-behavior: auto;
   }
-  
+
   #main-nav,
   #main-nav::before,
   .nav-items,
@@ -327,18 +333,61 @@ main {
   }
 }
 
-
 .card {
   background-color: var(--surface);
-  padding: 1rem;
+  /* padding: 1rem; */
   border-radius: 0.5rem;
   box-shadow: var(--shadow);
-
-
 }
 
-.card-portfolio {
+.card-terminal {
+  width: 100%;
+  opacity: 0.7;
+}
+
+.card-terminal-container > h2 {
+  padding-left: 1rem;
+  width: 100%;
+  font-family: var(--font-regular);
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--foreground);
+}
+
+.card-terminal {
+  padding: 1rem;
   width: 100%;
 }
 
+.card-terminal > p {
+  font-family: var(--font-regular);
+  margin: 0;
+  padding: 0;
+  line-height: 0.5;
+}
 
+.card-terminal-path {
+  color: var(--primary);
+}
+
+footer {
+  margin-bottom: 2rem;
+}
+
+.social-links {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.social-link {
+  width: 50px;
+  height: 50px;
+}
+
+.social-link > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

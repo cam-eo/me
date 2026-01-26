@@ -3,71 +3,129 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Cam - Software Developer portfolio showcasing CV, about me, and projects" />
+    <meta
+      name="description"
+      content="Cam - Software Developer portfolio showcasing CV, about me, and projects"
+    />
     <title>Cam - Software Developer</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
-    
+
     <canvas aria-hidden="true" id="background-canvas"></canvas>
     <canvas aria-hidden="true" id="hero-effects-canvas"></canvas>
 
-    <header role="banner">
-      <nav id="main-nav" aria-label="Main navigation">
-        <div class="nav-items">
-          <a href="#cv" class="nav-letter" data-letter="c" aria-label="CV">
-            <span class="letter-base">C</span>
-            <span class="letter-suffix">V</span>
-          </a>
-          
-          <a href="#about" class="nav-letter" data-letter="a" aria-label="About Me">
-            <span class="letter-base">A</span>
-            <span class="letter-suffix">bout Me</span>
-          </a>
-          
-          <a href="#projects" class="nav-letter" data-letter="m" aria-label="My Projects">
-            <span class="letter-base">M</span>
-            <span class="letter-suffix">y Projects</span>
-          </a>
-          
-          <span class="period">.</span>
-        </div>
-        
-        <input type="checkbox" id="light-mode-toggle" />
-        <label for="light-mode-toggle" aria-label="Toggle light mode">🌞</label>
-      </nav>
-    </header>
-    
+    <header role="banner"></header>
+
+    <nav id="main-nav" aria-label="Main navigation">
+      <div class="nav-items">
+        <a href="#cv" class="nav-letter" data-letter="c" aria-label="CV">
+          <span class="letter-base">C</span>
+          <span id="cv-suffix" class="letter-suffix">V</span>
+        </a>
+
+        <a
+          href="#about"
+          class="nav-letter"
+          data-letter="a"
+          aria-label="About Me"
+        >
+          <span class="letter-base">A</span>
+          <span id="about-me-suffix" class="letter-suffix">bout Me</span>
+        </a>
+
+        <a
+          href="#projects"
+          class="nav-letter"
+          data-letter="m"
+          aria-label="My Projects"
+        >
+          <span class="letter-base">M</span>
+          <span id="my-projects-suffix" class="letter-suffix">y Projects</span>
+        </a>
+
+        <span class="period">.</span>
+      </div>
+
+      <input type="checkbox" id="light-mode-toggle" />
+      <label for="light-mode-toggle" aria-label="Toggle light mode">🌞</label>
+    </nav>
+
     <main id="main-content" role="main">
       <section id="cv" class="content-section" aria-labelledby="cv-heading">
         <h2 id="cv-heading">CV</h2>
         <article>
-          <p>Experience, education, and professional background will go here.</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p>
+            Experience, education, and professional background will go here.
+          </p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
         </article>
-        <div class="tech-cloud" id="tech-cloud" role="img" aria-label="Technology highlights"></div>
+        <div
+          class="tech-cloud"
+          id="tech-cloud"
+          role="img"
+          aria-label="Technology highlights"
+        ></div>
       </section>
-      
-      <section id="about" class="content-section" aria-labelledby="about-heading">
+
+      <section
+        id="about"
+        class="content-section"
+        aria-labelledby="about-heading"
+      >
         <h2 id="about-heading">About Me</h2>
         <article>
           <p>Personal introduction and background information.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          <p>
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
+          </p>
         </article>
       </section>
-      
-      <section id="projects" class="content-section" aria-labelledby="projects-heading">
+
+      <section
+        id="projects"
+        class="content-section"
+        aria-labelledby="projects-heading"
+      >
         <h2 id="projects-heading">My Projects</h2>
         <article>
           <p>Portfolio of work and projects.</p>
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-          <div class="card">> terminal</div>
+          <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur.
+          </p>
+          <div class="card card-terminal-container">
+            <h2>&#62; terminal</h2>
+            <div class="card-terminal">
+              <p><span class="card-terminal-path">C:/users/cam></span> help</p>
+              <p>Available commands:</p>
+              <p>- list (list all available projects)</p>
+              <p>- project [project] (list all available projects)</p>
+              <p>- stack [project] (see the stack of a project)</p>
+              <p>- about [project] (get a description of a project)</p>
+            </div>
+          </div>
         </article>
       </section>
     </main>
-    
-    <footer role="contentinfo"></footer>
+
+    <footer role="contentinfo">
+      <div class="social-links">
+        <a
+          class="social-link"
+          href="https://www.linkedin.com/in/cam-wright-65b38b1b0/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img src="image/linkedin.svg" alt="LinkedIn" />
+        </a>
+      </div>
+    </footer>
   </body>
   <script src="/script/stardust.js"></script>
   <script src="/script/navbar.js"></script>
