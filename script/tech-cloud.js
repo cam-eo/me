@@ -21,7 +21,8 @@
     const WORD_SPACING = 1.9; // Multiplier for spacing between words
     const PROGRESSIVE_REVEAL_DELAY = 50; // ms between word reveals
     const WORDS_PER_REVEAL = 1; // Words to reveal per tick
-    const ZOOM_MIN = 0.5;
+    const SPIRAL_START_RADIUS = 60; // Fixed scale: spiral geometry independent of canvas
+    const ZOOM_MIN = 0.15;
     const ZOOM_MAX = 4;
     const ZOOM_STEP = 0.25;
 
@@ -30,7 +31,7 @@
     let placedWords = [];
     let visibleWordCount = 0;
     let rotationOffset = 0;
-    let zoomLevel = 2.25;
+    let zoomLevel = 1.0;
     let isDragging = false;
     let dragStartAngle = 0;
     let dragStartRotation = 0;
@@ -95,11 +96,7 @@
     // Golden spiral: r = a * e^(b*θ)
     // For golden spiral: b = ln(φ) / (π/2)
     function getSpiralPoint(angle) {
-      // Scale starting radius based on canvas size
-      const width = canvas.width / (window.devicePixelRatio || 1);
-      const height = canvas.height / (window.devicePixelRatio || 1);
-      const minDimension = Math.min(width, height);
-      const a = minDimension * 0.07; // Start at 5% of smaller dimension
+      const a = SPIRAL_START_RADIUS;
       const r = a * Math.exp(SPIRAL_GROWTH * angle);
       return {
         x: r * Math.cos(angle),
@@ -218,6 +215,21 @@
 
         placeWords();
         console.log(`Placed ${placedWords.length} words along spiral`);
+        // Initial view: zoom out to fit whole spiral in canvas (only on first load)
+        if (placedWords.length > 0) {
+          const dpr = window.devicePixelRatio || 1;
+          const width = canvas.width / dpr;
+          const height = canvas.height / dpr;
+          const margin = Math.max(32, ...placedWords.map((w) => w.fontSize));
+          const minX = Math.min(...placedWords.map((w) => w.x)) - margin;
+          const maxX = Math.max(...placedWords.map((w) => w.x)) + margin;
+          const minY = Math.min(...placedWords.map((w) => w.y)) - margin;
+          const maxY = Math.max(...placedWords.map((w) => w.y)) + margin;
+          const boundsWidth = maxX - minX;
+          const boundsHeight = maxY - minY;
+          const fitScale = 0.9 * Math.min(width / boundsWidth, height / boundsHeight);
+          zoomLevel = Math.min(1, fitScale);
+        }
         startProgressiveReveal();
       } catch (error) {
         console.error("Failed to load tech bits:", error);
