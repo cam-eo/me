@@ -54,3 +54,22 @@ The tech cloud uses a deterministic layout algorithm to place tokens in a free-f
 - `measureText()`: Canvas-based text dimension measurement
 - `intersects()`: Collision detection between bounding boxes
 - `layoutTechCloud()`: Main layout orchestrator
+
+---
+
+## Fibonacci spiral tech cloud – increasing overall size
+
+To make the spiral text larger and easier to read:
+
+1. **Text size** – In `style.css`, bump the `:root` text tokens:
+   - `--text-sm`, `--text-base`, `--text-lg`, `--text-xl`, `--text-2xl`, `--text-3xl`, `--text-4xl`, `--text-5xl`
+   - Example: `--text-sm: 1rem;` `--text-base: 1.2rem;` … up to `--text-5xl: 5rem;` (or higher).
+
+2. **Canvas / container size** – In `style.css`:
+   - `.tech-cloud { min-height: 800px; }` (or more) to give the spiral more room.
+   - `.content-section { max-width: 1400px; }` if you want a wider section.
+
+3. **Spiral scale** – In `script/tech-cloud.js`, inside `getSpiralPoint()`:
+   - Change `const a = minDimension * 0.05;` to e.g. `0.07` or `0.1` so the spiral starts farther out and words sit in a larger ring.
+
+4. **User zoom** – Use the new **−** and **+** buttons (top-left of the tech cloud) to zoom out/in; default zoom is 1.25×.
