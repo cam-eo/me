@@ -265,127 +265,201 @@ main {
   margin-bottom: 1.5rem;
 }
 
-.tech-cloud {
-  position: relative;
+/* Split-flap board (train station style) */
+.tech-board {
+  --columns: 20;
+  --card-width: 40px;
+  --card-height: 56px;
+  --flip-duration: 150ms;
+  --card-bg: var(--surface);
+  --card-border: rgba(228, 197, 138, 0.2);
+  --card-text: var(--foreground);
+  --card-divider: rgba(0, 0, 0, 0.4);
+
+  display: grid;
+  grid-template-columns: repeat(var(--columns), var(--card-width));
+  gap: 3px;
+  justify-content: center;
   margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: 0.5rem;
+  overflow-x: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.flip-card {
+  position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
+  perspective: 200px;
+  font-family: var(--font-bold);
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--foreground);
+}
+
+.flip-card-inner {
+  position: relative;
   width: 100%;
-  min-height: 640px;
+  height: 100%;
+}
+
+/* Top and bottom halves showing current character */
+.flip-card-top,
+.flip-card-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: var(--card-bg);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid var(--card-border);
 }
 
-#tech-cloud-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 640px;
-  cursor: grab;
-  touch-action: none;
-  user-select: none;
+.flip-card-top {
+  top: 0;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
 }
 
-#tech-cloud-canvas:active {
-  cursor: grabbing;
-}
-
-.tech-cloud-zoom {
+/* Full-height character strip: top half shows top of letter */
+.flip-card-top span {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  display: flex;
-  gap: 0.25rem;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.tech-cloud-zoom button {
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-  border: 1px solid var(--foreground);
-  background: var(--surface);
-  color: var(--foreground);
-  font-size: 1.25rem;
-  line-height: 1;
-  cursor: pointer;
-  border-radius: 0.25rem;
-  font-family: var(--font-regular);
+  left: 50%;
+  top: 0;
+  width: 100%;
+  height: 200%;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.7;
-  transition: opacity 0.2s ease, background 0.2s ease;
+  transform: translateX(-50%);
+  color: var(--card-text);
+  line-height: 1;
 }
 
-.tech-cloud-zoom button:hover {
-  opacity: 1;
-  background: var(--primary);
+.flip-card-bottom {
+  bottom: 0;
+  border-radius: 0 0 4px 4px;
+  border-top: 1px solid var(--card-divider);
 }
 
-.tech-cloud-zoom button:focus-visible {
-  outline: 2px solid var(--foreground);
-  outline-offset: 2px;
-}
-
-.tech-cloud-hint {
+/* Full-height character strip: bottom half shows bottom of letter */
+.flip-card-bottom span {
   position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  font-size: var(--text-sm);
-  color: var(--foreground);
-  opacity: 0.4;
-  pointer-events: none;
-  font-family: var(--font-regular);
-  transition: opacity 0.3s ease;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  color: var(--card-text);
+  line-height: 1;
 }
 
-.tech-cloud:hover .tech-cloud-hint {
-  opacity: 0.6;
-}
-
-.tech-cloud-item {
+/* Flap elements for animation */
+.flip-card-flap-top,
+.flip-card-flap-bottom {
   position: absolute;
   left: 0;
+  right: 0;
+  height: 50%;
+  background: var(--card-bg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--card-border);
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.flip-card-flap-top {
   top: 0;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
-  line-height: 1.05;
-  font-family: var(--font-bold);
-  letter-spacing: 0.02em;
+  border-radius: 4px 4px 0 0;
+  border-bottom: none;
+  transform-origin: bottom center;
 }
 
-.tech-cloud-item[data-size="sm"] {
-  font-size: var(--text-sm);
+.flip-card-flap-top span {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 100%;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  color: var(--card-text);
+  line-height: 1;
 }
 
-.tech-cloud-item[data-size="base"] {
-  font-size: var(--text-base);
+.flip-card-flap-bottom {
+  bottom: 0;
+  border-radius: 0 0 4px 4px;
+  border-top: 1px solid var(--card-divider);
+  transform-origin: top center;
+  transform: rotateX(90deg);
 }
 
-.tech-cloud-item[data-size="lg"] {
-  font-size: var(--text-lg);
+.flip-card-flap-bottom span {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 200%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  color: var(--card-text);
+  line-height: 1;
 }
 
-.tech-cloud-item[data-size="xl"] {
-  font-size: var(--text-xl);
+/* Flipping animation */
+.flip-card-inner.flipping .flip-card-flap-top {
+  opacity: 1;
+  animation: flipTop var(--flip-duration) ease-in forwards;
 }
 
-.tech-cloud-item[data-size="2xl"] {
-  font-size: var(--text-2xl);
+.flip-card-inner.flipping .flip-card-flap-bottom {
+  opacity: 1;
+  animation: flipBottom var(--flip-duration) ease-out forwards;
+  animation-delay: calc(var(--flip-duration) * 0.5);
 }
 
-.tech-cloud-item[data-size="3xl"] {
-  font-size: var(--text-3xl);
+@keyframes flipTop {
+  0% {
+    transform: rotateX(0deg);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
 }
 
-.tech-cloud-item[data-size="4xl"] {
-  font-size: var(--text-4xl);
+@keyframes flipBottom {
+  0% {
+    transform: rotateX(90deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
 }
 
-.tech-cloud-item[data-size="5xl"] {
-  font-size: var(--text-5xl);
+/* Light mode adjustments */
+:root:has(#light-mode-toggle:checked) .tech-board {
+  --card-border: rgba(139, 107, 62, 0.3);
+  --card-divider: rgba(0, 0, 0, 0.2);
 }
 
 /* Reduced motion support */
@@ -400,8 +474,12 @@ main {
   .nav-letter,
   .letter-base,
   .letter-suffix,
-  .period {
+  .period,
+  .flip-card-inner,
+  .flip-card-flap-top,
+  .flip-card-flap-bottom {
     transition: none !important;
+    animation: none !important;
   }
 }
 

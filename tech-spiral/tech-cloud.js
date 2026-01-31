@@ -187,12 +187,12 @@
         // Wait for fonts to load before measuring
         await waitForFonts();
 
-        // Try both absolute and relative paths
+        // Try both absolute and relative paths (local to this folder)
         let response;
         try {
-          response = await fetch("/content/tech-bits.json");
+          response = await fetch("tech-bits.json");
         } catch (e) {
-          response = await fetch("content/tech-bits.json");
+          response = await fetch("./tech-bits.json");
         }
 
         if (!response.ok) {
@@ -227,8 +227,10 @@
           const maxY = Math.max(...placedWords.map((w) => w.y)) + margin;
           const boundsWidth = maxX - minX;
           const boundsHeight = maxY - minY;
-          const fitScale = 0.9 * Math.min(width / boundsWidth, height / boundsHeight);
-          zoomLevel = Math.min(1, fitScale);
+          // const fitScale = 0.9 * Math.min(width / boundsWidth, height / boundsHeight);
+          const fitScale = 5;
+          // zoomLevel = Math.min(1, fitScale);
+          zoomLevel = 5;
         }
         startProgressiveReveal();
       } catch (error) {
