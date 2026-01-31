@@ -153,7 +153,10 @@
   function calculateColumns() {
     const containerWidth = container.clientWidth || window.innerWidth;
     const widthPerColumn = CARD_WIDTH + CARD_GAP;
-    return Math.max(1, Math.floor((containerWidth + CARD_GAP) / widthPerColumn));
+    return Math.max(
+      1,
+      Math.floor((containerWidth + CARD_GAP) / widthPerColumn)
+    );
   }
 
   // Build the grid of flip cards
@@ -230,9 +233,9 @@
     try {
       let response;
       try {
-        response = await fetch("/content/tech-bits.json");
+        response = await fetch("./content/tech-bits.json");
       } catch (e) {
-        response = await fetch("content/tech-bits.json");
+        response = await fetch("./content/tech-bits.json");
       }
 
       if (!response.ok) {
