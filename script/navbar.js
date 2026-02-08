@@ -35,9 +35,6 @@ function lerp(a, b, t) {
 }
 
 const MOBILE_BREAKPOINT = 768;
-const MOBILE_TRANSITION_RATIO = 0.7;
-const MOBILE_FINAL_SCALE = 0.35;
-const MOBILE_FADE_START = 0.85;
 
 function setNavOpen(open) {
   isNavOpen = open;
@@ -61,6 +58,7 @@ function setNavOpen(open) {
 function handleScroll() {
   const scrollY = window.scrollY;
   const viewportHeight = window.innerHeight;
+  const isMobile = window.innerWidth <= MOBILE_BREAKPOINT;
 
   const progress = Math.min(scrollY / viewportHeight, 1);
 
@@ -85,16 +83,30 @@ function handleScroll() {
 
   const periodOpacity = 1 - progress;
 
-  if (aboutMeSuffix) {
-    aboutMeSuffix.style.width = `${progress * 6}rem`;
-  }
+  if (!isMobile) {
+    if (aboutMeSuffix) {
+      aboutMeSuffix.style.width = `${progress * 6}rem`;
+    }
 
-  if (cvSuffix) {
-    cvSuffix.style.width = `${progress * 1}rem`;
-  }
+    if (cvSuffix) {
+      cvSuffix.style.width = `${progress * 1}rem`;
+    }
 
-  if (myProjectsSuffix) {
-    myProjectsSuffix.style.width = `${progress * 10}rem`;
+    if (myProjectsSuffix) {
+      myProjectsSuffix.style.width = `${progress * 10}rem`;
+    }
+  } else {
+    if (aboutMeSuffix) {
+      aboutMeSuffix.style.width = "";
+    }
+
+    if (cvSuffix) {
+      cvSuffix.style.width = "";
+    }
+
+    if (myProjectsSuffix) {
+      myProjectsSuffix.style.width = "";
+    }
   }
 
   if (navItems) {
@@ -110,20 +122,25 @@ function handleScroll() {
   navLetters.forEach((letter) => {
     const suffix = letter.querySelector(".letter-suffix");
 
-    if (suffix) {
+    if (!isMobile && suffix) {
       suffix.style.opacity = suffixOpacity;
       suffix.style.transform =
         suffixOpacity > 0 ? "translateX(0)" : "translateX(-0.5rem)";
+    } else if (suffix) {
+      suffix.style.opacity = "";
+      suffix.style.transform = "";
     }
 
-    // Only control pointer events when nav is closed
-    if (!isNavOpen) {
+    // Only control pointer events when nav is closed on desktop
+    if (!isNavOpen && !isMobile) {
       letter.style.pointerEvents = progress > 0.3 ? "auto" : "none";
+    } else if (isMobile) {
+      letter.style.pointerEvents = "";
     }
   });
 
   if (period) {
-    period.style.opacity = periodOpacity;
+    period.style.opacity = isMobile ? "" : periodOpacity;
   }
 
   updateMobileCamTransform(scrollY, viewportHeight);
@@ -198,34 +215,10 @@ function updateActiveNav() {
 
 function updateMobileCamTransform(scrollY, viewportHeight) {
   if (!navItems) return;
-  const viewportWidth = window.innerWidth;
-  if (viewportWidth >= MOBILE_BREAKPOINT || isNavOpen) {
-    navItems.style.setProperty("--cam-mobile-translate-x", "0px");
-    navItems.style.setProperty("--cam-mobile-translate-y", "0px");
-    navItems.style.setProperty("--cam-mobile-scale", "1");
-    navItems.style.setProperty("--cam-mobile-opacity", "1");
-    return;
-  }
-
-  const transitionHeight = viewportHeight * MOBILE_TRANSITION_RATIO;
-  const progress = clamp(0, scrollY / transitionHeight, 1);
-  const targetX = Math.max(0, viewportWidth / 2 - 40);
-  const targetY = Math.max(0, viewportHeight / 2 - 40);
-  const translateX = -targetX * progress;
-  const translateY = -targetY * progress;
-  const scale = lerp(1, MOBILE_FINAL_SCALE, progress);
-
-  const fadeProgress = clamp(
-    0,
-    (progress - MOBILE_FADE_START) / (1 - MOBILE_FADE_START),
-    1
-  );
-  const opacity = Math.max(0, 1 - fadeProgress);
-
-  navItems.style.setProperty("--cam-mobile-translate-x", `${translateX}px`);
-  navItems.style.setProperty("--cam-mobile-translate-y", `${translateY}px`);
-  navItems.style.setProperty("--cam-mobile-scale", `${scale}`);
-  navItems.style.setProperty("--cam-mobile-opacity", `${opacity}`);
+  navItems.style.setProperty("--cam-mobile-translate-x", "0px");
+  navItems.style.setProperty("--cam-mobile-translate-y", "0px");
+  navItems.style.setProperty("--cam-mobile-scale", "1");
+  navItems.style.setProperty("--cam-mobile-opacity", "1");
 }
 
 document.querySelectorAll('.nav-letter[href^="#"]').forEach((anchor) => {

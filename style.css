@@ -298,6 +298,7 @@ header {
   }
 
   #main-nav {
+    inset: 0;
     justify-content: flex-start;
     align-items: center;
   }
@@ -345,6 +346,10 @@ header {
   #main-nav:not(.nav-open) .nav-letter:hover .letter-suffix,
   #main-nav:not(.nav-open) .nav-letter:focus .letter-suffix {
     opacity: 0.8;
+  }
+
+  #main-nav:not(.nav-open) .letter-suffix {
+    display: none;
   }
 
   #main-nav:not(.nav-open) .nav-mobile-label {
