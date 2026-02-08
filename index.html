@@ -19,10 +19,22 @@
     <header role="banner"></header>
 
     <nav id="main-nav" aria-label="Main navigation">
-      <div class="nav-items">
+      <button
+        class="nav-hamburger"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-dropdown"
+      >
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <div class="nav-items" id="nav-dropdown">
         <a href="#cv" class="nav-letter" data-letter="c" aria-label="CV">
           <span class="letter-base">C</span>
           <span id="cv-suffix" class="letter-suffix">V</span>
+          <span class="nav-mobile-label">CV</span>
         </a>
 
         <a
@@ -33,6 +45,7 @@
         >
           <span class="letter-base">A</span>
           <span id="about-me-suffix" class="letter-suffix">bout Me</span>
+          <span class="nav-mobile-label">About Me</span>
         </a>
 
         <a
@@ -43,6 +56,7 @@
         >
           <span class="letter-base">M</span>
           <span id="my-projects-suffix" class="letter-suffix">y Projects</span>
+          <span class="nav-mobile-label">My Projects</span>
         </a>
 
         <span class="period">.</span>

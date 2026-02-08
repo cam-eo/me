@@ -3,10 +3,9 @@
 
   // Configuration
   const ROWS = 10;
-  const CARD_WIDTH = 40; // px per flip card
-  const CARD_HEIGHT = 56; // px per flip card
   const CARD_GAP = 3; // px between cards (must match style.css)
   const FLIP_DURATION = 150; // ms per flip animation
+  const DEFAULT_CARD_WIDTH = 40; // fallback if CSS var missing
   const DISPLAY_DURATION = 10000; // ms to display before flipping to next set
   const FLIP_STAGGER_MAX = 800; // max random delay for staggered flip
 
@@ -150,9 +149,16 @@
   }
 
   // Calculate columns so full grid fits: columns * cardWidth + (columns - 1) * gap <= width
+  function getCardWidth() {
+    const computedStyle = getComputedStyle(container);
+    const widthValue = parseFloat(computedStyle.getPropertyValue("--card-width"));
+    return Number.isFinite(widthValue) ? widthValue : DEFAULT_CARD_WIDTH;
+  }
+
   function calculateColumns() {
     const containerWidth = container.clientWidth || window.innerWidth;
-    const widthPerColumn = CARD_WIDTH + CARD_GAP;
+    const cardWidth = getCardWidth();
+    const widthPerColumn = cardWidth + CARD_GAP;
     return Math.max(
       1,
       Math.floor((containerWidth + CARD_GAP) / widthPerColumn)
@@ -166,8 +172,6 @@
 
     container.innerHTML = "";
     container.style.setProperty("--columns", columns);
-    container.style.setProperty("--card-width", `${CARD_WIDTH}px`);
-    container.style.setProperty("--card-height", `${CARD_HEIGHT}px`);
     container.style.setProperty("--flip-duration", `${FLIP_DURATION}ms`);
 
     cells = [];
