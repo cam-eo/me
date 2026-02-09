@@ -47,11 +47,14 @@ function setNavOpen(open) {
     navToggleButton.setAttribute("aria-label", open ? "Close menu" : "Open menu");
   }
   
-  // Clear inline pointer-events styles when opening nav so CSS can take over
+  // Clear inline pointer-events and transform when opening nav so CSS can take over (modal stays fixed)
   if (open) {
     navLetters.forEach((letter) => {
       letter.style.pointerEvents = "";
     });
+    if (navItems) {
+      navItems.style.transform = "";
+    }
   }
 }
 
@@ -110,7 +113,12 @@ function handleScroll() {
   }
 
   if (navItems) {
-    navItems.style.transform = `translateY(${translateYPx}px)`;
+    // When mobile menu is open, keep dropdown fixed (no scroll-based transform)
+    if (isMobile && isNavOpen) {
+      navItems.style.transform = "";
+    } else {
+      navItems.style.transform = `translateY(${translateYPx}px)`;
+    }
     navItems.style.setProperty("--cam-font-size", `${camFontPx}px`);
   }
 
