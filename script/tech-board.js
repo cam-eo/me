@@ -38,6 +38,12 @@
     return arr;
   }
 
+  // Words that fit in current horizontal character count
+  function getWordsThatFit() {
+    const filtered = words.filter((w) => w.length <= columns);
+    return filtered.length > 0 ? filtered : words;
+  }
+
   // Pack words into grid, row by row
   function packWords(wordList, cols, rows) {
     const totalCells = cols * rows;
@@ -222,7 +228,7 @@
   async function runLoop() {
     while (true) {
       // Prepare next set
-      nextGrid = packWords(words, columns, ROWS);
+      nextGrid = packWords(getWordsThatFit(), columns, ROWS);
 
       // Flip to next set
       await flipToNextGrid();
@@ -284,7 +290,7 @@
       buildGrid();
       // If already started, flip to a new set
       if (hasStarted && !isAnimating) {
-        nextGrid = packWords(words, columns, ROWS);
+        nextGrid = packWords(getWordsThatFit(), columns, ROWS);
         flipToNextGrid();
       }
     }
