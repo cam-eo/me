@@ -2,7 +2,6 @@ const mainNav = document.getElementById("main-nav");
 const navItems = document.querySelector(".nav-items");
 const period = document.querySelector(".period");
 const navLetters = document.querySelectorAll(".nav-letter");
-const navLetterSuffixes = document.querySelectorAll(".letter-suffix");
 const aboutMeSuffix = document.getElementById("about-me-suffix");
 const cvSuffix = document.getElementById("cv-suffix");
 const myProjectsSuffix = document.getElementById("my-projects-suffix");
@@ -23,20 +22,20 @@ function clamp(min, v, max) {
   return Math.min(max, Math.max(min, v));
 }
 
-/**
- *
- * @param {*} a - final value
- * @param {*} b - initial value
- * @param {*} t - Increment (0-1)
- * @returns
- */
+/** Linear interpolation: a + (b - a) * t. */
 function lerp(a, b, t) {
   return a + (b - a) * t;
 }
 
 const MOBILE_BREAKPOINT = 768;
+const TARGET_CENTER_Y = 26;
 
 function setNavOpen(open) {
+  if (!open && window.innerWidth <= MOBILE_BREAKPOINT && mainNav) {
+    setMobileCamPosition(window.scrollY, window.innerHeight);
+    mainNav.classList.add("nav-closing");
+  }
+
   isNavOpen = open;
   if (mainNav) {
     mainNav.classList.toggle("nav-open", open);
@@ -44,9 +43,12 @@ function setNavOpen(open) {
   bodyElement.classList.toggle("nav-open", open);
   if (navToggleButton) {
     navToggleButton.setAttribute("aria-expanded", open ? "true" : "false");
-    navToggleButton.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    navToggleButton.setAttribute(
+      "aria-label",
+      open ? "Close menu" : "Open menu",
+    );
   }
-  
+
   // Clear inline pointer-events and transform when opening nav so CSS can take over (modal stays fixed)
   if (open) {
     navLetters.forEach((letter) => {
@@ -55,6 +57,13 @@ function setNavOpen(open) {
     if (navItems) {
       navItems.style.transform = "";
     }
+  }
+
+  // Re-enable transition after close so scroll updates animate; remove closing class next frame
+  if (!open && mainNav && mainNav.classList.contains("nav-closing")) {
+    requestAnimationFrame(() => {
+      mainNav.classList.remove("nav-closing");
+    });
   }
 }
 
@@ -73,14 +82,12 @@ function handleScroll() {
   const bigPx = clamp(
     8 * rootFontSize,
     window.innerWidth * widthFactor,
-    maxLargePx
+    maxLargePx,
   );
   const smallPx = 1.6 * rootFontSize;
   const camFontPx = lerp(bigPx, smallPx, progress);
 
-  // Position navbar text vertically from center Desktop
-  const targetCenterY = 26;
-  const translateYPx = (targetCenterY - window.innerHeight / 2) * progress;
+  const translateYPx = (TARGET_CENTER_Y - window.innerHeight / 2) * progress;
 
   const suffixOpacity = Math.max(0, (progress - 0.5) * 2);
 
@@ -113,8 +120,7 @@ function handleScroll() {
   }
 
   if (navItems) {
-    // When mobile menu is open, keep dropdown fixed (no scroll-based transform)
-    if (isMobile && isNavOpen) {
+    if (isMobile) {
       navItems.style.transform = "";
     } else {
       navItems.style.transform = `translateY(${translateYPx}px)`;
@@ -200,19 +206,19 @@ function updateActiveNav() {
   const viewportHeight = window.innerHeight;
   const progress = Math.min(scrollY / viewportHeight, 1);
   const isScrollComplete = progress > 0.5;
-  const isDesktop = window.innerWidth > 768;
+  const isDesktop = window.innerWidth > MOBILE_BREAKPOINT;
 
   navLetters.forEach((navLetter) => {
     const isActive = navLetter.dataset.letter === activeLetter;
     navLetter.classList.toggle("nav-active", isActive);
-    
+
     // Only show underline on desktop when scroll animation is complete
     if (isDesktop && isScrollComplete) {
       navLetter.classList.toggle("show-underline", isActive);
     } else {
       navLetter.classList.remove("show-underline");
     }
-    
+
     if (isActive) {
       navLetter.setAttribute("aria-current", "page");
     } else {
@@ -221,12 +227,22 @@ function updateActiveNav() {
   });
 }
 
-function updateMobileCamTransform(scrollY, viewportHeight) {
+/** Set mobile CAM. CSS vars from scroll position. Used on scroll (when nav closed) and when closing nav. */
+function setMobileCamPosition(scrollY, viewportHeight) {
   if (!navItems) return;
+  const progress = Math.min(scrollY / viewportHeight, 1);
+  const translateYPx = (TARGET_CENTER_Y - viewportHeight / 2) * progress;
   navItems.style.setProperty("--cam-mobile-translate-x", "0px");
-  navItems.style.setProperty("--cam-mobile-translate-y", "0px");
+  navItems.style.setProperty("--cam-mobile-translate-y", `${translateYPx}px`);
   navItems.style.setProperty("--cam-mobile-scale", "1");
   navItems.style.setProperty("--cam-mobile-opacity", "1");
+}
+
+function updateMobileCamTransform(scrollY, viewportHeight) {
+  if (!navItems || (window.innerWidth <= MOBILE_BREAKPOINT && isNavOpen))
+    return;
+  if (window.innerWidth > MOBILE_BREAKPOINT) return;
+  setMobileCamPosition(scrollY, viewportHeight);
 }
 
 document.querySelectorAll('.nav-letter[href^="#"]').forEach((anchor) => {

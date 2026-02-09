@@ -350,6 +350,11 @@ header {
       opacity 0.15s ease;
   }
 
+  /* No transition when closing so CAM. doesn't pop from center */
+  #main-nav.nav-closing:not(.nav-open) .nav-items {
+    transition: none;
+  }
+
   /* Ensure nav items shrink to fit on very small screens */
   @media (max-width: 570px) {
     #main-nav:not(.nav-open) .nav-items {
