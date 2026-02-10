@@ -120,12 +120,11 @@
         <h2 id="cv-heading">CV</h2>
         <article>
           <p>
-            Experience, education, and professional background will go here.
-          </p>
-          <p>
-            The tech landscape is an endless and ever-growing landscape. I spend
-            time at work and with personal projects attempting to keep up with
-            the times.
+            Technology is an infinite landscape just like outer space. I spend a
+            lot of time in my work environment and with personal projects
+            keeping up with the times by building scalable, robust, and
+            efficient systems. This all applies to the new paradigm of AI-driven
+            development we have so humblingly been cast into the last few years.
           </p>
         </article>
         <div
@@ -143,10 +142,16 @@
       >
         <h2 id="about-heading">About Me</h2>
         <article>
-          <p>Personal introduction and background information.</p>
           <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat.
+            My experience is colourful but it should tell you that I am curious
+            about technology. I started writing code when I was 16...Java
+            projects in Eclipse; discovering the wonders of code-completion with
+            the introduction of Netbeans and dabbling in web development before
+            the frameworks were a thing. I ventured out into other areas of
+            science and technology over the years, but My heart will always
+            belong to the ones-and-zeros...and...if quantum computing ends up
+            being viable who knows what we will be developing next. [INSERT AI
+            BUZZWORDS HERE 😉]
           </p>
         </article>
       </section>
@@ -159,14 +164,17 @@
         <h2 id="projects-heading">My Projects</h2>
         <article>
           <p>
-            Portfolio of work and projects. There are always more projects in
-            the works but here are some of the projects I'm most proud of.
+            There are always more projects in the works but here are a few
+            complete projects I'm most proud of.
           </p>
           <div id="projects-terminal" class="card card-terminal-container">
             <h2>&#62; terminal</h2>
             <div class="card-terminal" id="projects-terminal-view">
               <div class="terminal-output" id="projects-terminal-output"></div>
-              <div class="terminal-input-line" id="projects-terminal-input-line">
+              <div
+                class="terminal-input-line"
+                id="projects-terminal-input-line"
+              >
                 <span class="card-terminal-path">C:/users/cam></span>
                 <input
                   type="text"
@@ -178,7 +186,11 @@
                   spellcheck="false"
                   aria-label="Terminal command input"
                 />
-                <span class="terminal-suggestion" id="projects-terminal-suggestion" aria-hidden="true"></span>
+                <span
+                  class="terminal-suggestion"
+                  id="projects-terminal-suggestion"
+                  aria-hidden="true"
+                ></span>
               </div>
             </div>
           </div>
@@ -212,7 +224,7 @@
           observer.disconnect();
           import("./script/projects-terminal.js");
         },
-        { threshold: 0.1 }
+        { threshold: 0.1 },
       );
       observer.observe(el);
     })();
