@@ -398,6 +398,19 @@ function animate(time) {
   requestAnimationFrame(animate);
 }
 
+let resizeTimeout = null;
+function scheduleResize() {
+  if (resizeTimeout) clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    resizeCanvas();
+    resizeTimeout = null;
+  }, 250);
+}
+
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
+
+const resizeObserver = new ResizeObserver(scheduleResize);
+resizeObserver.observe(document.body);
+
 animate(0);

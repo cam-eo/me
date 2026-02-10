@@ -69,10 +69,48 @@
         aria-label="Toggle light mode"
       >
         <span class="theme-toggle-icon theme-toggle-sun" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            focusable="false"
+          >
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2" />
+            <path d="M12 20v2" />
+            <path d="m4.93 4.93 1.41 1.41" />
+            <path d="m17.66 17.66 1.41 1.41" />
+            <path d="M2 12h2" />
+            <path d="M20 12h2" />
+            <path d="m6.34 17.66-1.41 1.41" />
+            <path d="m19.07 4.93-1.41 1.41" />
+          </svg>
         </span>
         <span class="theme-toggle-icon theme-toggle-moon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M18 5h4"/><path d="M20 3v4"/><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            focusable="false"
+          >
+            <path d="M18 5h4" />
+            <path d="M20 3v4" />
+            <path
+              d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+            />
+          </svg>
         </span>
       </label>
     </nav>
@@ -120,20 +158,28 @@
       >
         <h2 id="projects-heading">My Projects</h2>
         <article>
-          <p>Portfolio of work and projects.</p>
           <p>
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur.
+            Portfolio of work and projects. There are always more projects in
+            the works but here are some of the projects I'm most proud of.
           </p>
-          <div class="card card-terminal-container">
+          <div id="projects-terminal" class="card card-terminal-container">
             <h2>&#62; terminal</h2>
-            <div class="card-terminal">
-              <p><span class="card-terminal-path">C:/users/cam></span> help</p>
-              <p>Available commands:</p>
-              <p>- list (list all available projects)</p>
-              <p>- project [project] (list all available projects)</p>
-              <p>- stack [project] (see the stack of a project)</p>
-              <p>- about [project] (get a description of a project)</p>
+            <div class="card-terminal" id="projects-terminal-view">
+              <div class="terminal-output" id="projects-terminal-output"></div>
+              <div class="terminal-input-line" id="projects-terminal-input-line">
+                <span class="card-terminal-path">C:/users/cam></span>
+                <input
+                  type="text"
+                  class="terminal-input"
+                  id="projects-terminal-input"
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  aria-label="Terminal command input"
+                />
+                <span class="terminal-suggestion" id="projects-terminal-suggestion" aria-hidden="true"></span>
+              </div>
             </div>
           </div>
         </article>
@@ -156,4 +202,19 @@
   <script src="./script/stardust.js"></script>
   <script src="./script/navbar.js"></script>
   <script src="./script/tech-board.js"></script>
+  <script type="module">
+    (function () {
+      const el = document.getElementById("projects-terminal");
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        function (entries) {
+          if (!entries[0].isIntersecting) return;
+          observer.disconnect();
+          import("./script/projects-terminal.js");
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(el);
+    })();
+  </script>
 </html>

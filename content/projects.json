@@ -1,17 +1,47 @@
 [
-    {
-        "name": "Project 1",
-        "description": "Description of Project 1",
-        "stack": ["HTML", "CSS", "JavaScript"]
-    },
-    {
-        "name": "Project 2",
-        "description": "Description of Project 2",
-        "stack": ["HTML", "CSS", "JavaScript"]
-    },
-    {
-        "name": "Project 3",
-        "description": "Description of Project 3",
-        "stack": ["HTML", "CSS", "JavaScript"]
-    }
+  {
+    "name": "me",
+    "description": "Description of Project 1",
+    "stack": ["HTML", "CSS", "JavaScript"],
+    "links": [
+      {
+        "title": "GitHub",
+        "url": "https://github.com/cam-eo/me"
+      }
+    ]
+  },
+  {
+    "name": "flowaura",
+    "description": "An art driven E-commerce store for a local artist.",
+    "stack": [
+      "SvelteKit",
+      "TailwindCSS",
+      "Typescript",
+      "Mollie",
+      "Cloudflare",
+      "Directus"
+    ],
+    "links": [
+      {
+        "title": "Website",
+        "url": "https://flowaura.art"
+      }
+    ]
+  },
+  {
+    "name": "acrosense",
+    "description": "A VSCode for Acronyms",
+    "stack": ["Typescript"],
+
+    "links": [
+      {
+        "title": "GitHub",
+        "url": "https://github.com/wrighterlabs/acrosense"
+      },
+      {
+        "title": "VSCode Marketplace",
+        "url": "https://marketplace.visualstudio.com/items?itemName=WrighterLabs.acrosense"
+      }
+    ]
+  }
 ]

@@ -737,9 +737,9 @@ main {
 
 .card-terminal {
   width: 100%;
-  opacity: 0.7;
+  opacity: 0.9;
   height: 260px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   white-space: normal;
   word-wrap: break-word;
@@ -769,6 +769,74 @@ main {
 
 .card-terminal-path {
   color: var(--primary);
+}
+
+/* Terminal output and input lines */
+.terminal-output {
+  font-family: var(--font-regular);
+  margin: 0;
+  padding: 0;
+}
+
+.terminal-line {
+  font-family: var(--font-regular);
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.terminal-input-line {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  font-family: var(--font-regular);
+  margin: 0;
+  padding: 0.25rem 0;
+  line-height: 1.5;
+  gap: 0.25rem;
+}
+
+.terminal-link {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+.terminal-link:hover {
+  text-decoration: underline;
+}
+
+.terminal-link:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
+.terminal-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--foreground);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  caret-color: var(--foreground);
+}
+
+.terminal-input::placeholder {
+  color: var(--foreground);
+  opacity: 0.5;
+}
+
+/* Idle help suggestion (low opacity) */
+.terminal-suggestion {
+  opacity: 0.4;
+  font-style: italic;
+  font-size: 0.9em;
+  color: var(--foreground);
+  margin-left: 0.25em;
 }
 
 footer {
