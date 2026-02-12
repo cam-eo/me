@@ -497,7 +497,7 @@ main {
   line-height: 1.8;
 }
 
-.content-section article p {
+.content-section > article > p {
   margin-bottom: 1.5rem;
 }
 
@@ -735,7 +735,7 @@ main {
 .card-terminal {
   width: 100%;
   opacity: 0.9;
-  height: 260px;
+  height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
   white-space: normal;
@@ -757,18 +757,10 @@ main {
   width: 100%;
 }
 
-.card-terminal > p {
-  font-family: var(--font-regular);
-  margin: 0;
-  padding: 0;
-  line-height: 0.5;
-}
-
 .card-terminal-path {
   color: var(--primary);
 }
 
-/* Terminal output and input lines */
 .terminal-output {
   font-family: var(--font-regular);
   margin: 0;

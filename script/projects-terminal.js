@@ -1,14 +1,10 @@
-/**
- * Projects terminal: interactive CLI for the projects section.
- * Lazy-loaded when #projects-terminal enters the viewport.
- */
 (function () {
   "use strict";
 
   const PROMPT = "C:/users/cam>";
   const COMMANDS = ["list", "about", "stack", "clear", "help"];
   const STORAGE_KEY = "projectsTerminalHistory";
-  const IDLE_MS = 10000;
+  const IDLE_MS = 5000;
 
   let projects = [];
   let history = [];
@@ -23,7 +19,7 @@
 
   if (!container || !outputContainer || !inputEl) return;
 
-  // --- Data ---
+  // Data
   async function loadProjects() {
     try {
       const res = await fetch("./content/projects.json");
@@ -51,7 +47,7 @@
       .map((proj) => proj.name);
   }
 
-  // --- Session storage ---
+  // Session storage
   function saveHistoryToSession() {
     try {
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(history));
@@ -69,7 +65,7 @@
     }
   }
 
-  // --- DOM helpers ---
+  // DOM helpers
   function scrollToBottom() {
     container.scrollTop = container.scrollHeight;
   }
@@ -145,7 +141,7 @@
     hideSuggestion();
   }
 
-  // --- Commands ---
+  // Commands
   function runList() {
     if (projects.length === 0) {
       appendOutputLine("No projects loaded.");
@@ -157,7 +153,9 @@
   function runAbout(name) {
     const project = findProject(name);
     if (!project) {
-      appendOutputLine(`Project not found: ${name}. Use 'list' to see projects.`);
+      appendOutputLine(
+        `Project not found: ${name}. Use 'list' to see projects.`,
+      );
       return;
     }
     appendOutputLine(project.name);
@@ -170,24 +168,40 @@
   function runStack(name) {
     const project = findProject(name);
     if (!project) {
-      appendOutputLine(`Project not found: ${name}. Use 'list' to see projects.`);
+      appendOutputLine(
+        `Project not found: ${name}. Use 'list' to see projects.`,
+      );
       return;
     }
-    const stack = project.stack && project.stack.length ? project.stack.join(", ") : "(none)";
+    const stack =
+      project.stack && project.stack.length
+        ? project.stack.join(", ")
+        : "(none)";
     appendOutputLine(`Stack: ${stack}`);
   }
 
   function runClear() {
-    while (outputContainer.firstChild) outputContainer.removeChild(outputContainer.firstChild);
+    while (outputContainer.firstChild)
+      outputContainer.removeChild(outputContainer.firstChild);
   }
 
   function runHelp() {
     appendOutputLine("Available commands:");
-    appendOutputLine("- list (list all available projects)");
-    appendOutputLine("- stack [project] (see the stack of a project)");
-    appendOutputLine("- about [project] (get a description of a project)");
-    appendOutputLine("- clear (clear the terminal)");
-    appendOutputLine("- help (show this help message)");
+    appendOutputLine("-----------------------");
+    appendOutputLine(
+      "Type one of the commands below to get information about my projects",
+    );
+    appendOutputLine("-----------------------");
+    appendOutputLine("-----------------------");
+    appendOutputLine("list - list all available projects");
+    appendOutputLine(
+      "stack [project name] - view the stack of a project - e.g. stack me",
+    );
+    appendOutputLine(
+      "about [project name] - view a description of a project - e.g. about me ",
+    );
+    appendOutputLine("clear - clear the terminal");
+    appendOutputLine("help  -                 show this help message");
   }
 
   function executeCommand(line) {
@@ -215,7 +229,9 @@
         runHelp();
         break;
       default:
-        appendOutputLine("Command not found. Type 'help' for available commands.");
+        appendOutputLine(
+          "Command not found. Type 'help' for available commands.",
+        );
     }
   }
 
@@ -235,7 +251,7 @@
     scrollToBottom();
   }
 
-  // --- Tab completion ---
+  // Tab completion
   function completeCommand(prefix) {
     const p = (prefix || "").toLowerCase();
     const matches = COMMANDS.filter((c) => c.startsWith(p));
@@ -284,7 +300,7 @@
     }
   }
 
-  // --- Keyboard ---
+  // Keyboard
   function onKeydown(e) {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -326,7 +342,7 @@
     resetIdleTimer();
   }
 
-  // --- Initial content: restore from session or show help ---
+  // Initial content: restore from session or show help
   function renderInitial() {
     const saved = loadHistoryFromSession();
     if (saved.length > 0) {
